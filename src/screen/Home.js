@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const BASE_URL = 'https://mobile.dev.quadrant-si.id/developertest/api/docs/';
-export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMWY2MTIyMS02MTYwLTQwZjQtYTRlNS1hYjc0YjhkMTg5OTciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NTU1MDYsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.BpAoTTzV0qxr6PxxHs393bENco0NnU9oXLPIsK1lBPg';
+export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MTgwNGZkNC1iYTA3LTQ0MGItODczNi1lM2RhYzBiMmE5M2QiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NjIyMjUsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.9zL35y5FRfGerM0Xz0X2M776FzLmUmP_PyqzKQ0xBuk';
 
 const Home = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -21,7 +21,7 @@ const Home = () => {
   
       if (response.ok) {
         const data = await response.json();
-        console.log('Data received:', data); // Log data untuk memastikan respons valid
+        console.log('Data received:', data); // Log data for debugging
         const suppliersData = data.data.map(supplier => ({
           id: supplier.id,
           name: supplier.name,
@@ -44,7 +44,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchSuppliers(2, 1); // Panggil halaman dan ukuran yang diperlukan
+    fetchSuppliers(1, 10); // Fetch the first page with 10 items
   }, []);
 
   if (loading) {
@@ -52,22 +52,121 @@ const Home = () => {
   }
 
   return (
-    <View>
-      <Text>Hello</Text>
-      <FlatList
-        data={suppliers.slice(0, 5)} // Menampilkan hanya 5 data pertama
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={{ marginBottom: 16 }}>
-            <Text>ID Kurir: {item.id}</Text>
-            <Text>Nama Kurir: {item.name}</Text>
-            <Text>Kode Posko: {item.postCode}</Text>
-            <Text>Alamat: {item.address}</Text>
-          </View>
-        )}
-      />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>INVENTORY APPS</Text>
+      </View>
+      <View style={styles.mainContent}>
+        <FlatList
+          data={suppliers.slice(0, 5)} // Display only the first 5 items
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.personContainer}>
+              <View style={styles.personDetails}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.label}>Kode Kurir</Text>
+                <Text style={styles.label}>Alamat</Text>
+                <Text style={styles.label}>Kode Posko</Text>
+              </View>
+              <View style={styles.personInfo}>
+                <Text style={styles.code}>{item.id}</Text>
+                <Text style={styles.address}>{item.address}</Text>
+                <Text style={styles.code}>{item.postCode}</Text>
+              </View>
+            </View>
+          )}
+        />
+        <TouchableOpacity style={styles.addButton}>
+          <Text style={styles.addButtonText}>+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#E0F2F1',
+  },
+  header: {
+    width: '100%',
+    paddingVertical: 8,
+    backgroundColor: '#D32F2F',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+  mainContent: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 40,
+    maxWidth: 480,
+  },
+  personContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  personDetails: {
+    flexDirection: 'column',
+    marginLeft: 8,
+    maxWidth: 160,
+  },
+  personInfo: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginTop: 8,
+    maxWidth: 160,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  label: {
+    fontSize: 12,
+    color: '#607D8B',
+    marginTop: 4,
+  },
+  code: {
+    fontSize: 14,
+    color: '#FF5722',
+    fontWeight: 'bold',
+  },
+  address: {
+    fontSize: 14,
+    color: '#000000',
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#000000',
+    marginVertical: 16,
+  },
+  addButton: {
+    backgroundColor: '#D32F2F',
+    width: 55,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
+  addButtonText: {
+    fontSize: 32,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+});
 
 export default Home;
