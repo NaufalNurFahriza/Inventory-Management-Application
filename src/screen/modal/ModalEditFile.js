@@ -3,7 +3,7 @@ import { Modal, View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } fro
 
 // Your API configuration
 export const BASE_URL = 'https://mobile.dev.quadrant-si.id/developertest';
-export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxYjE4ZTc4ZS01NzY2LTQyNWQtOTI4OS03YTM5YTIxYTc1YTgiLCJ...'; // Use the actual token
+export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmOTM0MTVlMC1mYjM3LTQyMmEtODEyZC03M2VjN2E4YmQ5MWMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NjcxMTYsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.cE1p3Iyor3Vc5q0NYTkCj1ZcCtSSLz8zzGNEkX19ePg';
 
 const ModalEditFile = ({ show, onClose }) => {
   // State to manage the form input values
@@ -65,13 +65,13 @@ const ModalEditFile = ({ show, onClose }) => {
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
           <View style={styles.title}>
-            <Text style={styles.modalTitle}>Edit Supplier Data</Text>
+            <Text style={styles.modalTitle}>Edit Data Kurir</Text>
             <TouchableOpacity onPress={onClose}>
               <Text style={styles.closeButtonText}>X</Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.modalDescription}>Update Supplier Information</Text>
+          <Text style={styles.modalDescription}>Ubah data kurir</Text>
 
           {/* Supplier ID */}
           <Text style={styles.inputLabel}>Supplier ID</Text>
@@ -116,7 +116,7 @@ const ModalEditFile = ({ show, onClose }) => {
 
           {/* Confirm Button */}
           <TouchableOpacity style={styles.confirmButton} onPress={handleSubmit}>
-            <Text style={styles.confirmButtonText}>Save Changes</Text>
+            <Text style={styles.confirmButtonText}>Simpan perubahan</Text>
           </TouchableOpacity>
         </View>
       </View>
