@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'react-native';
 
-// Your API configuration
 export const BASE_URL = 'https://mobile.dev.quadrant-si.id/developertest';
-export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmOTM0MTVlMC1mYjM3LTQyMmEtODEyZC03M2VjN2E4YmQ5MWMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NjcxMTYsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.cE1p3Iyor3Vc5q0NYTkCj1ZcCtSSLz8zzGNEkX19ePg';
+export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiMGQ3ZmQ0ZC0yZWNmLTQzM2MtYjJhNS0xOTFjYzM2YzFjZTkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NzcyOTQsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.n9Kur-Ysl4eEgaZJHA1qeZ_LcVtOTwtDZRhsInZOCxI';
 
 const ModalAddFile = ({ show, onClose }) => {
-  // State to manage the form input values
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -14,7 +12,6 @@ const ModalAddFile = ({ show, onClose }) => {
   const [contacts, setContacts] = useState([{ name: '', contactType: 'mobilePhone', value: '' }]); // Simplified contacts
 
   const handleSubmit = async () => {
-    // Create the data object to send to the API
     const supplierData = {
       id,
       name,
@@ -23,7 +20,6 @@ const ModalAddFile = ({ show, onClose }) => {
     };
   
     try {
-      // Make the API POST request
       const response = await fetch(`${BASE_URL}/Supplier`, {
         method: 'POST',
         headers: {
@@ -34,11 +30,10 @@ const ModalAddFile = ({ show, onClose }) => {
         body: JSON.stringify(supplierData),
       });
   
-      // Check if the request was successful
       if (response.ok) {
         const data = await response.json();
         Alert.alert('Supplier added successfully!');
-        console.log('Supplier data:', data); // For debugging
+        console.log('Supplier data:', data); 
       } else {
         const errorText = await response.text();
         console.error('Error adding supplier:', response.status, errorText);
@@ -67,7 +62,6 @@ const ModalAddFile = ({ show, onClose }) => {
 
           <Text style={styles.modalDescription}>Input data kurir baru</Text>
 
-          {/* ID Kurir */}
           <Text style={styles.inputLabel}>ID Kurir</Text>
           <TextInput
             style={styles.input}
@@ -77,7 +71,6 @@ const ModalAddFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Nama Kurir */}
           <Text style={styles.inputLabel}>Nama Kurir</Text>
           <TextInput
             style={styles.input}
@@ -87,7 +80,6 @@ const ModalAddFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Kode Posko */}
           <Text style={styles.inputLabel}>Kode Posko</Text>
           <TextInput
             style={styles.input}
@@ -97,7 +89,6 @@ const ModalAddFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Alamat */}
           <Text style={styles.inputLabel}>Alamat</Text>
           <TextInput
             style={styles.input}
@@ -108,7 +99,6 @@ const ModalAddFile = ({ show, onClose }) => {
             multiline
           />
 
-          {/* Confirm Button */}
           <TouchableOpacity style={styles.confirmButton} onPress={handleSubmit}>
             <Text style={styles.confirmButtonText}>Konfirmasi</Text>
           </TouchableOpacity>

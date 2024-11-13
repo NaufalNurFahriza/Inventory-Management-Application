@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'react-native';
 
-// Your API configuration
 export const BASE_URL = 'https://mobile.dev.quadrant-si.id/developertest';
-export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmOTM0MTVlMC1mYjM3LTQyMmEtODEyZC03M2VjN2E4YmQ5MWMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NjcxMTYsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.cE1p3Iyor3Vc5q0NYTkCj1ZcCtSSLz8zzGNEkX19ePg';
+export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiMGQ3ZmQ0ZC0yZWNmLTQzM2MtYjJhNS0xOTFjYzM2YzFjZTkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NzcyOTQsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.n9Kur-Ysl4eEgaZJHA1qeZ_LcVtOTwtDZRhsInZOCxI';
 
 const ModalEditFile = ({ show, onClose }) => {
-  // State to manage the form input values
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [postCode, setPostCode] = useState('');
-  const [contacts, setContacts] = useState([{ name: '', contactType: 'mobilePhone', value: '' }]); // Simplified contacts
+  const [contacts, setContacts] = useState([{ name: '', contactType: 'mobilePhone', value: '' }]);
 
   const handleSubmit = async () => {
-    // Create the data object to send to the API for update
     const supplierData = {
       id,
       name,
       address,
-      city: '',  // Assuming city is required, but can be adjusted based on your API
+      city: '',  
       postCode,
       contacts: contacts.map(contact => ({
         name: contact.name,
@@ -29,7 +26,6 @@ const ModalEditFile = ({ show, onClose }) => {
     };
 
     try {
-      // Make the API PUT request to update the supplier data
       const response = await fetch(`${BASE_URL}/Supplier`, {
         method: 'PUT',
         headers: {
@@ -40,11 +36,10 @@ const ModalEditFile = ({ show, onClose }) => {
         body: JSON.stringify(supplierData),
       });
 
-      // Check if the request was successful
       if (response.ok) {
         const data = await response.json();
         Alert.alert('Supplier updated successfully!');
-        console.log('Updated supplier data:', data); // For debugging
+        console.log('Updated supplier data:', data); 
       } else {
         const errorText = await response.text();
         console.error('Error updating supplier:', response.status, errorText);
@@ -73,7 +68,6 @@ const ModalEditFile = ({ show, onClose }) => {
 
           <Text style={styles.modalDescription}>Ubah data kurir</Text>
 
-          {/* Supplier ID */}
           <Text style={styles.inputLabel}>Supplier ID</Text>
           <TextInput
             style={styles.input}
@@ -83,7 +77,6 @@ const ModalEditFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Supplier Name */}
           <Text style={styles.inputLabel}>Supplier Name</Text>
           <TextInput
             style={styles.input}
@@ -93,7 +86,6 @@ const ModalEditFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Postcode */}
           <Text style={styles.inputLabel}>Postcode</Text>
           <TextInput
             style={styles.input}
@@ -103,7 +95,6 @@ const ModalEditFile = ({ show, onClose }) => {
             placeholderTextColor="#607D8B"
           />
 
-          {/* Address */}
           <Text style={styles.inputLabel}>Address</Text>
           <TextInput
             style={styles.input}
@@ -114,7 +105,6 @@ const ModalEditFile = ({ show, onClose }) => {
             multiline
           />
 
-          {/* Confirm Button */}
           <TouchableOpacity style={styles.confirmButton} onPress={handleSubmit}>
             <Text style={styles.confirmButtonText}>Simpan perubahan</Text>
           </TouchableOpacity>

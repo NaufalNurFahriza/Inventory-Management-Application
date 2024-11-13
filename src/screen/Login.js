@@ -11,11 +11,11 @@ const Login = () => {
       return;
     }
 
-    // For now, just log the inputs
+
     console.log('Courier Code:', courierCode);
     console.log('Password:', password);
 
-    // Add your authentication logic here (e.g., API call)
+
   };
 
   return (

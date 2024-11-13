@@ -5,6 +5,7 @@ import ModalEditFile from './modal/ModalEditFile.js';
 
 export const BASE_URL = 'https://mobile.dev.quadrant-si.id/developertest/api/docs/';
 export const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiMGQ3ZmQ0ZC0yZWNmLTQzM2MtYjJhNS0xOTFjYzM2YzFjZTkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJwZXJtaXNzaW9uIjpbInNlYy5leHQuYyIsInNlYy5leHQuZCIsInNlYy5leHQudSIsInNlYy5leHQudiIsInNlYy5tb2QuYyIsInNlYy5tb2QuZCIsInNlYy5tb2QudSIsInNlYy5tb2QudiIsInNlYy5wZXIuYyIsInNlYy5wZXIuZCIsInNlYy5wZXIudSIsInNlYy5wZXIudiIsInNlYy5yb2wuYyIsInNlYy5yb2wuZCIsInNlYy5yb2wudSIsInNlYy5yb2wudiIsInNlYy51c2UuYyIsInNlYy51c2UuZCIsInNlYy51c2UudSIsInNlYy51c2UudiJdLCJyb2xlIjpbIi0iLCJTdXBlciBBZG1pbiJdLCJleHAiOjE3MzE0NzcyOTQsImlzcyI6Imh0dHBzOi8vbW9iaWxlLmRldi5xdWFkcmFudC1zaS5pZC9hZ2VudGRldi8iLCJhdWQiOiJRTUFHRU5UIn0.n9Kur-Ysl4eEgaZJHA1qeZ_LcVtOTwtDZRhsInZOCxI';
+
 const Home = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const Home = () => {
   
       if (response.ok) {
         const data = await response.json();
-        console.log('Data received:', data); // Log data for debugging
+        console.log('Data received:', data); 
         const suppliersData = data.data.map(supplier => ({
           id: supplier.id,
           name: supplier.name,
@@ -47,7 +48,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchSuppliers(1, 10); // Fetch the first page with 10 items
+    fetchSuppliers(1, 10);
   }, []);
 
   if (loading) {
@@ -60,7 +61,7 @@ const Home = () => {
         show={modalFile}
         onClose={() => setModalFile(false)}
       />
-         <ModalEditFile
+        <ModalEditFile
         show={modalEdit}
         onClose={() => setModalEdit(false)}
       />
@@ -69,7 +70,7 @@ const Home = () => {
       </View>
       <View style={styles.mainContent}>
         <FlatList
-          data={suppliers.slice(0, 10)} // Display only the first 5 items
+          data={suppliers.slice(0, 10)}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => {
